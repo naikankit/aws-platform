@@ -2,7 +2,7 @@ pipeline {
     agent {
         node {
             label ''
-            customWorkspace "${env.WORKSPACE}/samples"
+            customWorkspace "/var/lib/jenkins/workspace/res-terraform-platform/samples"
         }
     }
     parameters {

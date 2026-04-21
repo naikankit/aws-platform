@@ -43,7 +43,7 @@ pipeline {
                     -var-file=env/${params.ENV}/us-e2/terraform.tfvars \
                     -out=tfplan
                     """
-                    stash name: 'plan', includes: 'tfplan, .terraform.lock.hcl
+                    stash name: 'plan', includes: 'tfplan, .terraform.lock.hcl'
                     }
                 }
             }

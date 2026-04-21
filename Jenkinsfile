@@ -34,11 +34,10 @@ pipeline {
         stage('Terraform init') {
    
             steps {
-                dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {
                     sh """
                     terraform init -upgrade
                     """
-                }
+                
             }
         }
 

@@ -26,7 +26,6 @@ pipeline {
             steps {
                 dir('/samples/') {
                    sh 'terraform init'
-                   sh 'ls -la && pwd'
                 }
             }
         }

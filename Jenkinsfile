@@ -26,7 +26,6 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                deleteDir()  // Clean workspace
                 git branch: 'feature/optimization', url: 'https://github.com/naikankit/aws-platform.git'
             }
         }

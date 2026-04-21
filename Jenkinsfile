@@ -22,10 +22,12 @@ pipeline {
         }
 
         stage('Terraform Init') {
-            dir('/samples/')
+   
             steps {
-                sh 'terraform init'
-                sh 'ls -la && pwd'
+                dir('/samples/') {
+                   sh 'terraform init'
+                   sh 'ls -la && pwd'
+                }
             }
         }
 

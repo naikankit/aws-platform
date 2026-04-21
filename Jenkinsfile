@@ -25,7 +25,7 @@ pipeline {
             steps {
                 dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {
                     sh """
-                    terraform init
+                    terraform init -upgrade
                     """
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
                     -var-file=env/${params.ENV}/us-e2/terraform.tfvars \
                     -out=tfplan
                     """
-                    stash name: 'plan', includes: 'tfplan'
+                    stash name: 'plan', includes: 'tfplan, .terraform.lock.hcl
                     }
                 }
             }

@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent{
+        node {
+            label ''
+            customWorkspace '/var/lib/jenkins/workspace/res-terraform-platform/samples'
+        }
+    }
 
     parameters {
         choice(
@@ -24,11 +29,11 @@ pipeline {
         stage('Terraform init') {
    
             steps {
-                dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {
+               // dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {
                     sh """
                     terraform init
                     """
-                }
+                //}
             }
         }
 

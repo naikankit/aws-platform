@@ -21,10 +21,10 @@ pipeline {
             }
         }
 
-        stage('Terraform Init') {
+        stage('Terraform init') {
    
             steps {
-                dir('/samples/') {
+                dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {
                     sh """
                     terraform -version
                     """
@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('Terraform Plan') {
+        stage('Terraform plan') {
             steps {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding',

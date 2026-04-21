@@ -26,7 +26,7 @@ pipeline {
             steps {
                 dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {
                     sh """
-                    terraform -version
+                    terraform init
                     """
                 }
             }

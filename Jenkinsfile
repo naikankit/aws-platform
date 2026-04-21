@@ -43,6 +43,7 @@ pipeline {
                     -var-file=env/${params.ENV}/us-e2/terraform.tfvars \
                     -out=tfplan
                     """
+                    stash name: 'plan', includes: 'tfplan'
                     }
                 }
             }
@@ -51,6 +52,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
+                unstash 'plan' // Bring the file back
                 input message: "Approve apply for ${params.ENV}?"
 
                 withCredentials([

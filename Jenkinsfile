@@ -52,6 +52,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
+                dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {                
                 unstash 'plan' // Bring the file back
                 input message: "Approve apply for ${params.ENV}?"
 
@@ -63,6 +64,8 @@ pipeline {
                     terraform apply -auto-approve tfplan
                     """
                 }
+                }
+                
             }
         }
     }

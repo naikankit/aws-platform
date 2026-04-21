@@ -25,7 +25,9 @@ pipeline {
    
             steps {
                 dir('/samples/') {
-                   sh 'terraform init'
+                    sh """
+                    terraform -version
+                    """
                 }
             }
         }

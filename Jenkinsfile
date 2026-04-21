@@ -1,10 +1,19 @@
 pipeline {
-    agent any
+    agent {
+        node {
+            customWorkspace "${env.WORKSPACE}/samples"
+        }
+    }
     parameters {
         choice(
             name: 'ENV',
             choices: ['dev', 'uat', 'prd'],
             description: 'Select environment'
+        )
+        choice(
+            name: 'REG',
+            choices: ['us-e2', 'us-w2'],
+            description: 'Select region'
         )
     }
 
@@ -16,7 +25,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/naikankit/aws-platform.git'
+                deleteDir()  // Clean workspace
+                git branch: 'feature/optimization', url: 'https://github.com/naikankit/aws-platform.git'
             }
         }
 
@@ -33,26 +43,23 @@ pipeline {
 
         stage('Terraform plan') {
             steps {
-                dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding',
                      credentialsId: 'aws-creds']
                 ]) {
                     sh """
                     terraform plan \
-                    -var-file=env/${params.ENV}/us-e2/terraform.tfvars \
+                    -var-file=env/${params.ENV}/${params.REG}/terraform.tfvars \
                     -out=tfplan
                     """
                     stash name: 'plan', includes: 'tfplan, .terraform.lock.hcl'
                     }
-                }
             }
         }
 
 
         stage('Terraform Apply') {
-            steps {
-                dir('/var/lib/jenkins/workspace/res-terraform-platform/samples') {                
+            steps {              
                 unstash 'plan' // Bring the file back
                 input message: "Approve apply for ${params.ENV}?"
 
@@ -64,8 +71,7 @@ pipeline {
                     terraform apply -auto-approve tfplan
                     """
                 }
-                }
-                
+
             }
         }
     }

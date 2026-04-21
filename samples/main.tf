@@ -1,5 +1,5 @@
 module "vpc" {
-    source = "../modules/VPC"
+    source = "../modules/vpc"
     vpc_name = var.vpc_name_parent_module
     vpc_cidr_child_module = var.vpc_cidr_parent_module
     public_subnet_cidrs_child_module = var.public_subnet_cidrs_parent_module
@@ -17,7 +17,7 @@ output "vpc_id" {
 }
 
 module "security_groups" {
-  source = "../Modules/security_group"
+  source = "../modules/security_group"
   security_groups_name = var.security_groups_name
   security_groups_description = var.security_groups_description
   tags = var.tags_parent_module

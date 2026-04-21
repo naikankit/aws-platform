@@ -49,7 +49,7 @@ pipeline {
                     sh """
                     pwd && ls -la
                     terraform plan \
-                    -var-file=env/${params.ENV}/${params.REG}/terraform.tfvars \
+                    -var-file=samples/env/${params.ENV}/${params.REG}/terraform.tfvars \
                     -out=tfplan
                     """
                     stash name: 'plan', includes: 'tfplan, .terraform.lock.hcl'

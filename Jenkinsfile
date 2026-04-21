@@ -47,6 +47,7 @@ pipeline {
                      credentialsId: 'aws-creds']
                 ]) {
                     sh """
+                    pwd && ls -la
                     terraform plan \
                     -var-file=env/${params.ENV}/${params.REG}/terraform.tfvars \
                     -out=tfplan

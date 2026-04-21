@@ -50,7 +50,7 @@ pipeline {
                 ]) {
                     sh """
                     pwd && ls -la
-                    ls -la ./env/dev/us-e2/
+                    ls -la ../env/dev/us-e2/
                     terraform plan \
                     -var-file=../env/${params.ENV}/${params.REG}/terraform.tfvars \
                     -out=tfplan

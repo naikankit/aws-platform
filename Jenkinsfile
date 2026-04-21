@@ -17,7 +17,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/naikankit/aws-platform.git'
+                git branch: 'master', url: 'https://github.com/naikankit/aws-platform.git'
             }
         }
 
@@ -42,7 +42,8 @@ pipeline {
                 }
             }
         }
-//
+
+
         stage('Terraform Apply') {
             steps {
                 input message: "Approve apply for ${params.ENV}?"
@@ -59,3 +60,4 @@ pipeline {
         }
     }
 }
+

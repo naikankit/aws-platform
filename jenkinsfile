@@ -10,19 +10,20 @@ pipeline {
     }
 
     environment {
-        AWS_DEFAULT_REGION = 'ap-south-1'
+        AWS_DEFAULT_REGION = 'us-east-1'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR-REPO.git'
+                git branch: 'main', url: 'https://github.com/naikankit/aws-platform.git'
             }
         }
 
         stage('Terraform Init') {
             steps {
+                sh 'cd samples/'
                 sh 'terraform init'
             }
         }

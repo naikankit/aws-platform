@@ -36,7 +36,7 @@ pipeline {
                 ]) {
                     sh """
                     terraform plan \
-                    -var-file=env/${params.ENV}/terraform.tfvars \
+                    -var-file=env/${params.ENV}/us-e2/terraform.tfvars \
                     -out=tfplan
                     """
                 }

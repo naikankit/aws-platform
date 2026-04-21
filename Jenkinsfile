@@ -43,6 +43,7 @@ pipeline {
 
         stage('Terraform plan') {
             steps {
+                dir("samples") {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding',
                      credentialsId: 'aws-creds']
@@ -56,12 +57,14 @@ pipeline {
                     """
                     stash name: 'plan', includes: 'tfplan, .terraform.lock.hcl'
                     }
+                }
             }
         }
 
 
         stage('Terraform Apply') {
-            steps {              
+            steps {
+                dir("samples") {
                 unstash 'plan' // Bring the file back
                 input message: "Approve apply for ${params.ENV}?"
 
@@ -73,6 +76,7 @@ pipeline {
                     terraform apply -auto-approve tfplan
                     """
                 }
+            }
 
             }
         }
